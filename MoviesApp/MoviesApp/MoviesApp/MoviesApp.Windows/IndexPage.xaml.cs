@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.SpeechSynthesis;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -102,5 +103,17 @@ namespace MoviesApp
         }
 
         #endregion
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MediaElement player = new MediaElement();
+            using (var speech = new SpeechSynthesizer())
+            {
+                SpeechSynthesizer synth = new SpeechSynthesizer();
+                var voicestream = await synth.SynthesizeTextToStreamAsync("Hello George");
+                player.SetSource(voicestream, voicestream.ContentType);
+                player.Play();
+            }
+        }
     }
 }

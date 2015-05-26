@@ -28,7 +28,7 @@ namespace MoviesApp.ViewModels
             this.DictionaryOfEpisodes = new Dictionary<Tuple<int, int>, Movie>();
         }
 
-        public async Task ReadDataFromWeb()
+        public async Task ReadDataFromWebAsync()
         {
             var client = new HttpClient();
             for (int i = 1; i < 7; i++)

@@ -1,4 +1,5 @@
 ﻿using MoviesApp.Common;
+using MoviesApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
+using Windows.Media.SpeechSynthesis;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -67,6 +69,8 @@ namespace MoviesApp
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+            var episode = (e.NavigationParameter as Movie);
+            this.DataContext = episode;
         }
 
         /// <summary>
@@ -107,5 +111,16 @@ namespace MoviesApp
         }
 
         #endregion
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MediaElement player = new MediaElement();
+            using (var speech = new SpeechSynthesizer())
+            {
+                var voiceStream = await speech.SynthesizeTextToStreamAsync(TextBlock_Plot.Text);
+                player.SetSource(voiceStream, voiceStream.ContentType);
+                player.Play();
+            }
+        }
     }
 }
