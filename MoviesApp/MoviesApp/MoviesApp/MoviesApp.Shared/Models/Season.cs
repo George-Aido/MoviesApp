@@ -9,6 +9,8 @@ namespace MoviesApp.Models
     public class Season
     {
         [JsonProperty (PropertyName = "Episode")]
-        public List<Episode> Episode { get; set; }
+        public List<Episode> Episodes { get; set; }
+        [JsonProperty(PropertyName = "NumberOfSeason")]
+        public int NumberOfSeason { get; set; }
     }
 }

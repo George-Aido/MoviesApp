@@ -5,10 +5,15 @@
     xmlns:local="using:MoviesApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
+    <Page.Background>
+        <ImageBrush Stretch="UniformToFill" ImageSource="Assets/ItemPage.png"/>
+    </Page.Background>
 
     <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush Stretch="Fill"/>
+        </Grid.Background>
 
         <Grid.ChildrenTransitions>
             <TransitionCollection>
@@ -18,26 +23,84 @@
 
         <Grid>
             <ScrollViewer>
-                <StackPanel>
+                <StackPanel Margin="18">
                     <TextBlock Grid.ColumnSpan="2" 
         						Text="{Binding Title}" FontSize="38" 
-                               Margin="18"
-        						Foreground="Crimson"
+                               Margin="0,0,0,18"
         						TextWrapping="Wrap"
         						HorizontalAlignment="Left"
         						FontWeight="SemiBold"/>
-                    <Image Stretch="Uniform" Margin="18,0"
+                    <StackPanel Orientation="Horizontal">
+                    <Image Stretch="UniformToFill" 
+        						HorizontalAlignment="Left"
         						Height="300"
+                               Width="200"
         						Source="{Binding Poster}"/>
-                    <TextBlock  x:Name="TextBlock_Plot"
-                        Text="{Binding Plot}"
-        						TextWrapping="Wrap" 
-        						FontSize="20"
-        						Margin="18"/>
-                    <Button Content="PlayContent" 
-                            HorizontalAlignment="Center" 
-                            Margin="0,24"
-                            Click="Button_Click"/>
+                        <!--<Rectangle Stretch="Fill" Margin="0"
+                               HorizontalAlignment="Left"
+        						Height="300"
+                               Width="200"
+        						Fill="White"/>-->
+                        <StackPanel>
+                            <TextBlock
+                            Text="{Binding Released}"
+        						    TextWrapping="Wrap" 
+        						    FontSize="18" Margin="6"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  x:Name="TextBlock_Imdb_Rating"
+                            Text="{Binding imdbRating}"
+        						    TextWrapping="Wrap" 
+        						    FontSize="18" Margin="6"/>
+                                <TextBlock  x:Name="TextBlock_Imdb_Votes"
+                                    Text="{Binding imdbVotes}"
+        						    TextWrapping="Wrap" 
+        						    FontSize="18" Margin="6"/>
+                            </StackPanel>
+                            <TextBlock  x:Name="TextBlock_Imdb_Id"
+                            Text="{Binding imdbID}"
+        						    TextWrapping="Wrap" 
+        						    FontSize="18" Margin="6"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                    <StackPanel x:Name="StackPanel_TextBlocks">
+                        <Button Content="Play Content" 
+                                FontWeight="Light"
+                                HorizontalAlignment="Left" 
+                                Margin="0,12"
+                                BorderThickness="2"
+                                Click="Button_Click" FontFamily="Global User Interface"/>
+                        <TextBlock Text="Plot"
+                                   FontSize="20"
+        						    Margin="0,6"
+                                   FontWeight="Bold"/>
+                        <TextBlock  x:Name="TextBlock_Plot"
+                            Text="{Binding Plot}"
+        						    TextWrapping="Wrap" 
+        						    FontSize="20"
+        						    Margin="0"/>
+
+                        <TextBlock Text="Genres"
+                                   FontSize="20"
+        						    Margin="0,6"
+                                   FontWeight="Bold"/>
+                        <TextBlock 
+                            Text="{Binding Genre}"
+        						    TextWrapping="Wrap" 
+        						    FontSize="20"
+        						    Margin="0"/>
+
+                        <TextBlock Text="Runtime"
+                                   FontSize="20"
+        						    Margin="0,6"
+                                   FontWeight="Bold"/>
+                        <TextBlock 
+                            Text="{Binding Runtime}"
+        						    TextWrapping="Wrap" 
+        						    FontSize="20"
+        						    Margin="0"/>
+
+                    </StackPanel>
                 </StackPanel>
             </ScrollViewer>
         </Grid>

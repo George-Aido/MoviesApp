@@ -74,8 +74,8 @@ namespace MoviesApp
             if (ViewModel == null)
             {
                 ViewModel = new CollectionViewModel();
-                //var temp2 = await ViewModel.ReadDataFromWebAsync();
-                await ViewModel.ReadDataFromWebAsync();
+                //ViewModel.ReadDataFromWeb();
+                ViewModel.SeasonList = await ViewModel.DoReadDataFromWebAsync();
                 //ViewModel.SeasonList = temp2;
                 for (int i = 1; i < 7; i++)
                 {
@@ -88,19 +88,22 @@ namespace MoviesApp
             { } 
         }
 
-        private void AddHubSections(List<Season> temp, int i)
-        {
-            int index = 1;
-            foreach (var season in temp)
+        private void AddHubSections(RootObject temp, int i)
+        {            
+            foreach (var season in temp.SeasonList)
             {
+                if (Hub1.Sections.Any(t => t.Header.ToString() == "Season: " + season.NumberOfSeason.ToString()))
+                {
+                    //Section already exists, return
+                    return;
+                }
                 Hub1.Sections.Add(new HubSection()
                     {
-                        Header = "Season: " + index,
-                        DataContext = season,
+                        Header = "Season: " + season.NumberOfSeason,
+                        DataContext = season.Episodes,
                         HeaderTemplate = Resources["DefaultHeaderTemplate"] as DataTemplate,
                         ContentTemplate = Resources["DefaultContentTemplate"] as DataTemplate
                     });
-                index++;
             }
             //HubSection_1.Header = "Season: " + tempList[0].Season;
             //HubSection_1.DataContext = tempList;

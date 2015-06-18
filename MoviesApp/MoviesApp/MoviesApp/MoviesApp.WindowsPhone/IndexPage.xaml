@@ -6,11 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    >
     <Page.Resources>
         <DataTemplate x:Key="DefaultHeaderTemplate">
             <TextBlock FontSize="42" 
-                       Foreground="{ThemeResource PhoneAccentBrush}" 
                        HorizontalAlignment="Stretch" 
 				    TextWrapping="Wrap"
                     FontWeight="SemiBold"
@@ -37,7 +36,6 @@
         						Source="{Binding Poster}"/>
                             <TextBlock Grid.ColumnSpan="2" 
         						Text="{Binding Title}" FontSize="28" 
-        						Foreground="{ThemeResource PhoneAccentBrush}"
         						TextWrapping="Wrap"
         						MaxLines="2"
         						HorizontalAlignment="Left"
@@ -53,7 +51,10 @@
             </ListView>
         </DataTemplate>
     </Page.Resources>
-
+    <Page.Background>
+        <ImageBrush Stretch="UniformToFill" ImageSource="Assets/54023.jpg"/>
+    </Page.Background>
+    
     <Grid x:Name="LayoutRoot">
 
         <Grid.ChildrenTransitions>
@@ -68,7 +69,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1" x:Name="ContentRoot">
-            <Hub x:Name="Hub1" Header="Game of Thrones" Foreground="Crimson"
+            <Hub x:Name="Hub1" Header="Game of Thrones"
                  Visibility="Collapsed">
                 <!--<HubSection x:Name="HubSection_1" 
                             HeaderTemplate="{StaticResource DefaultHeaderTemplate}" 

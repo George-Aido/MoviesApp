@@ -21,4 +21,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\CollectionViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\54023.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\ItemPage.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SplashScreen.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SplashScreen.scale-140.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SplashScreen_1152x1920.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Splash_480x800.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Splash_672x1120.png" />
+    <Content Include="$(MSBuildThisFileDirectory)SampleDataModel\SampleData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

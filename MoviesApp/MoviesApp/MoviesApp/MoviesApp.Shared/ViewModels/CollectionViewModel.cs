@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +12,9 @@ namespace MoviesApp.ViewModels
     public class CollectionViewModel : ViewModelBase
     {
         //private Dictionary<Tuple<int, int>, Movie> _dictionaryOfEpisodes;
-        private List<Season> _seasonList;
+        private RootObject _seasonList;
 
-        public List<Season> SeasonList
+        public RootObject SeasonList
         {
             get { return _seasonList; }
             set 
@@ -26,24 +27,35 @@ namespace MoviesApp.ViewModels
             }
         }
 
+        public CollectionViewModel()
+        {
+            //this.SeasonList = new RootObject();
+            //ReadDataFromWeb();
+        }
+
+        public async void ReadDataFromWeb()
+        {
+            this.SeasonList = await DoReadDataFromWebAsync();
+        }
         
-        public async Task ReadDataFromWebAsync()
+        public async Task<RootObject> DoReadDataFromWebAsync()
         {
             var client = new HttpClient();
-
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             var response = await client.GetAsync(new Uri("https://api.myjson.com/bins/32jsw"));
+            Debug.WriteLine("Response in: {0} ", stopWatch.ElapsedMilliseconds);
+            stopWatch.Stop();
             switch ((int)(response.StatusCode))
             {
                 case 200:
                     var stream = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<RootObject>(stream);
-                    break;
-                    //return result;
+                    return result;
                 case 498:
-                    // invalid token
                     throw new Exception();
-                //default:
-                    //return null;
+                default:
+                    return null;
             }
         }
 
