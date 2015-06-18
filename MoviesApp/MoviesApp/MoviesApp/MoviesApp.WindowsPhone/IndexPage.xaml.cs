@@ -1,4 +1,5 @@
 ﻿using MoviesApp.Common;
+using MoviesApp.Models;
 using MoviesApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -73,38 +74,34 @@ namespace MoviesApp
             if (ViewModel == null)
             {
                 ViewModel = new CollectionViewModel();
+                //var temp2 = await ViewModel.ReadDataFromWebAsync();
                 await ViewModel.ReadDataFromWebAsync();
-
-                ProgressRing.Visibility = Visibility.Collapsed;
-                var temp = ViewModel.DictionaryOfEpisodes;
+                //ViewModel.SeasonList = temp2;
                 for (int i = 1; i < 7; i++)
                 {
-                    AddHubSections(temp, i);
+                    AddHubSections(ViewModel.SeasonList, i);
                 }
+                ProgressRing.Visibility = Visibility.Collapsed;
                 Hub1.Visibility = Visibility.Visible;
             }
             else
             { } 
         }
 
-        private void AddHubSections(Dictionary<Tuple<int, int>, Movie> temp, int i)
+        private void AddHubSections(List<Season> temp, int i)
         {
-            List<Movie> tempList = new List<Movie>();
-            foreach (var episode in temp)
+            int index = 1;
+            foreach (var season in temp)
             {
-                if (episode.Key.Item1 == i)
-                {
-                    tempList.Add(episode.Value);
-                }
+                Hub1.Sections.Add(new HubSection()
+                    {
+                        Header = "Season: " + index,
+                        DataContext = season,
+                        HeaderTemplate = Resources["DefaultHeaderTemplate"] as DataTemplate,
+                        ContentTemplate = Resources["DefaultContentTemplate"] as DataTemplate
+                    });
+                index++;
             }
-            Hub1.Sections.Add(new HubSection()
-                {
-                    Header = "Season: " + tempList[0].Season,
-                    DataContext = tempList,
-                    Tag = tempList[0].Season,
-                    HeaderTemplate = Resources["DefaultHeaderTemplate"] as DataTemplate,
-                    ContentTemplate = Resources["DefaultContentTemplate"] as DataTemplate
-                });
             //HubSection_1.Header = "Season: " + tempList[0].Season;
             //HubSection_1.DataContext = tempList;
         }
@@ -150,7 +147,7 @@ namespace MoviesApp
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var episode = ((Movie)e.ClickedItem);
+            var episode = ((Episode)e.ClickedItem);
             if (!Frame.Navigate(typeof(ItemPage), episode))
             {
                 throw new Exception("NavigationFailedExceptionMessage");

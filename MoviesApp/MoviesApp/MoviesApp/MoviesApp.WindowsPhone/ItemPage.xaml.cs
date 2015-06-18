@@ -1,4 +1,5 @@
 ﻿using MoviesApp.Common;
+using MoviesApp.Models;
 using MoviesApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -69,7 +70,7 @@ namespace MoviesApp
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            var episode = (e.NavigationParameter as Movie);
+            var episode = (e.NavigationParameter as Episode);
             this.DataContext = episode;
         }
 
