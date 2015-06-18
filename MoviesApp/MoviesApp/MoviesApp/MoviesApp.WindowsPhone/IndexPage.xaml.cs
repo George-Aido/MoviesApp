@@ -1,4 +1,5 @@
 ﻿using MoviesApp.Common;
+using MoviesApp.Models;
 using MoviesApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,8 @@ namespace MoviesApp
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         /// <summary>
@@ -69,22 +72,41 @@ namespace MoviesApp
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             if (ViewModel == null)
-                ViewModel = new CollectionViewModel();
-
-            await ViewModel.ReadDataFromWeb();
-
-            var temp = ViewModel.DictionaryOfEpisodes;
-
-            List<Movie> tempList = new List<Movie>();
-            foreach (var season in temp)
             {
-                if (season.Key.Item1 == 1)
+                ViewModel = new CollectionViewModel();
+                //ViewModel.ReadDataFromWeb();
+                ViewModel.SeasonList = await ViewModel.DoReadDataFromWebAsync();
+                //ViewModel.SeasonList = temp2;
+                for (int i = 1; i < 7; i++)
                 {
-                    tempList.Add(season.Value);
+                    AddHubSections(ViewModel.SeasonList, i);
                 }
+                ProgressRing.Visibility = Visibility.Collapsed;
+                Hub1.Visibility = Visibility.Visible;
             }
-            HubSection_1.Header = "Season: " + tempList[0].Season;
-            HubSection_1.DataContext = tempList;
+            else
+            { } 
+        }
+
+        private void AddHubSections(RootObject temp, int i)
+        {            
+            foreach (var season in temp.SeasonList)
+            {
+                if (Hub1.Sections.Any(t => t.Header.ToString() == "Season: " + season.NumberOfSeason.ToString()))
+                {
+                    //Section already exists, return
+                    return;
+                }
+                Hub1.Sections.Add(new HubSection()
+                    {
+                        Header = "Season: " + season.NumberOfSeason,
+                        DataContext = season.Episodes,
+                        HeaderTemplate = Resources["DefaultHeaderTemplate"] as DataTemplate,
+                        ContentTemplate = Resources["DefaultContentTemplate"] as DataTemplate
+                    });
+            }
+            //HubSection_1.Header = "Season: " + tempList[0].Season;
+            //HubSection_1.DataContext = tempList;
         }
 
         /// <summary>
@@ -125,5 +147,14 @@ namespace MoviesApp
         }
 
         #endregion
+
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var episode = ((Episode)e.ClickedItem);
+            if (!Frame.Navigate(typeof(ItemPage), episode))
+            {
+                throw new Exception("NavigationFailedExceptionMessage");
+            }
+        }
     }
 }

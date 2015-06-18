@@ -1,12 +1,16 @@
 ﻿using MoviesApp.Common;
+using MoviesApp.Models;
+using MoviesApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
+using Windows.Media.SpeechSynthesis;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -27,7 +31,8 @@ namespace MoviesApp
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
-
+        MediaElement player;
+        Episode tempEpisode;
         public ItemPage()
         {
             this.InitializeComponent();
@@ -67,6 +72,10 @@ namespace MoviesApp
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+            var episode = (e.NavigationParameter as Episode);
+            tempEpisode = episode;
+            this.DataContext = episode;
+            player = new MediaElement();
         }
 
         /// <summary>
@@ -107,5 +116,35 @@ namespace MoviesApp
         }
 
         #endregion
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            switch (button.Content.ToString())
+            {
+                case "Play Content":
+                    button.Content = "Stop";
+                    using (var speech = new SpeechSynthesizer())
+                    {
+                        var voiceStream = await speech.SynthesizeTextToStreamAsync(EpisodeStringContent());
+                        player.SetSource(voiceStream, voiceStream.ContentType);
+                        player.Play();
+                    }
+                    break;
+                default:
+                    player.Stop();
+                    button.Content = "PlayContent";
+                    break;
+            }
+        }
+
+        private string EpisodeStringContent()
+        {
+            StringBuilder toRead = new StringBuilder();
+            toRead.Append(tempEpisode.Title +". ");
+            toRead.Append(". plot. " + tempEpisode.Plot + ". genres. " + tempEpisode.Genre + ". runtime. " + tempEpisode.Runtime);
+
+            return toRead.ToString();
+        }
     }
 }

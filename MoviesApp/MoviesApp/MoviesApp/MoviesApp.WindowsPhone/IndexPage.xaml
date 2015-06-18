@@ -6,8 +6,55 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    >
+    <Page.Resources>
+        <DataTemplate x:Key="DefaultHeaderTemplate">
+            <TextBlock FontSize="42" 
+                       HorizontalAlignment="Stretch" 
+				    TextWrapping="Wrap"
+                    FontWeight="SemiBold"
+				    VerticalAlignment="Top"
+                    Text="{Binding}" FontFamily="Plantagenet Cherokee"/>
+        </DataTemplate>
+        <DataTemplate x:Key="DefaultContentTemplate">
+            <ListView ItemsSource="{Binding}"
+                      IsItemClickEnabled="True" 
+                      ItemClick="ListView_ItemClick">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Width="120" Height="120" Grid.Row="1"
+        						VerticalAlignment="Center" 
+        						Source="{Binding Poster}"/>
+                            <TextBlock Grid.ColumnSpan="2" 
+        						Text="{Binding Title}" FontSize="28" 
+        						TextWrapping="Wrap"
+        						MaxLines="2"
+        						HorizontalAlignment="Left"
+        						FontWeight="SemiBold"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" 
+        						Text="{Binding Plot}"
+        						TextWrapping="Wrap" TextTrimming="WordEllipsis"
+        						MaxLines="6" FontSize="16"
+        						Margin="6"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DataTemplate>
+    </Page.Resources>
+    <Page.Background>
+        <ImageBrush Stretch="UniformToFill" ImageSource="Assets/54023.jpg"/>
+    </Page.Background>
+    
     <Grid x:Name="LayoutRoot">
 
         <Grid.ChildrenTransitions>
@@ -21,44 +68,19 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
-            <Hub x:Name="Hub1">
-                <HubSection x:Name="HubSection_1">
-                    <DataTemplate>
-                        <ListView ItemsSource="{Binding}">
-                            <ListView.ItemTemplate>                                
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Image Width="120" Height="120" Grid.Row="1"
-                                                VerticalAlignment="Center" 
-                                                Source="{Binding Poster}"/>
-                                        <TextBlock Grid.ColumnSpan="2" 
-                                               Text="{Binding Title}" FontSize="28" 
-                                               Foreground="{ThemeResource PhoneAccentBrush}"
-                                               TextWrapping="Wrap"
-                                               MaxLines="2"
-                                               HorizontalAlignment="Left"
-                                               FontWeight="SemiBold"/>
-                                        <TextBlock Grid.Column="1" Grid.Row="1" 
-                                               Text="{Binding Plot}"
-                                               TextWrapping="Wrap" TextTrimming="WordEllipsis"
-                                               MaxLines="6" FontSize="16"
-                                               Margin="6"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </DataTemplate>
-                </HubSection>
+        <Grid Grid.Row="1" x:Name="ContentRoot">
+            <Hub x:Name="Hub1" Header="Game of Thrones"
+                 Visibility="Collapsed">
+                <!--<HubSection x:Name="HubSection_1" 
+                            HeaderTemplate="{StaticResource DefaultHeaderTemplate}" 
+                            ContentTemplate="{StaticResource DefaultContentTemplate}"
+                            Header="Hello"/>
+                <HubSection x:Name="HubSection_2"
+                            HeaderTemplate="{StaticResource DefaultHeaderTemplate}" 
+                            ContentTemplate="{StaticResource DefaultContentTemplate}"
+                            Header="Hello"/>-->
             </Hub>
         </Grid>
-    </Grid>
+        <ProgressRing x:Name="ProgressRing" Grid.Row="1" IsActive="True" Height="90" Width="90"/>
+    </Grid>    
 </Page>

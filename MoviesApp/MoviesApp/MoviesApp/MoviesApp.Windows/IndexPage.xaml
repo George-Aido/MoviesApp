@@ -46,5 +46,7 @@
             <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
                         IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
         </Grid>
+        <TextBlock/>
+        <Button Grid.Row="1" HorizontalAlignment="Center" Content="TextToSpeech" Click="Button_Click"/>
     </Grid>
 </Page>
