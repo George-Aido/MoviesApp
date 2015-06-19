@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="e9ab1165-88c1-40e9-8826-adb8cfd67276" Publisher="CN=Segovia" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="e9ab1165-88c1-40e9-8826-adb8cfd67276" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="45015GeorgeAidonidis.GameofthronesEpisodeGuide" Publisher="CN=7590D3D6-7D9D-42B7-BF03-29D3A233228A" Version="1.1.0.2" />
+  <mp:PhoneIdentity PhoneProductId="4ea2e0ad-9a83-4d27-881a-426d800d678f" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>MoviesApp.WindowsPhone</DisplayName>
-    <PublisherDisplayName>Segovia</PublisherDisplayName>
+    <DisplayName>Game of thrones Episode Guide</DisplayName>
+    <PublisherDisplayName>George Aidonidis</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>

@@ -31,11 +31,17 @@
         						HorizontalAlignment="Left"
         						FontWeight="SemiBold"/>
                     <StackPanel Orientation="Horizontal">
-                    <Image Stretch="UniformToFill" 
+                        
+                        <!-- Grid for image-->
+                        <Grid VerticalAlignment="Top"
         						HorizontalAlignment="Left"
         						Height="300"
-                               Width="200"
-        						Source="{Binding Poster}"/>
+                               Width="200">
+                            <Grid 
+                              Background="Black" Opacity=".7"/>
+                            <Image Stretch="Uniform" 
+        						    Source="{Binding Poster}"/>
+                        </Grid>
                         <!--<Rectangle Stretch="Fill" Margin="0"
                                HorizontalAlignment="Left"
         						Height="300"

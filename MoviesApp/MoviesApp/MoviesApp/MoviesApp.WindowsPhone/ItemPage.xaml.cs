@@ -133,7 +133,7 @@ namespace MoviesApp
                     break;
                 default:
                     player.Stop();
-                    button.Content = "PlayContent";
+                    button.Content = "Play Content";
                     break;
             }
         }
