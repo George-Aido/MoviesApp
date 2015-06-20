@@ -81,6 +81,9 @@
                             Header="Hello"/>-->
             </Hub>
         </Grid>
-        <ProgressRing x:Name="ProgressRing" Grid.Row="1" IsActive="True" Height="90" Width="90"/>
+        <ProgressRing x:Name="ProgressRing" 
+                      Grid.Row="1" IsActive="True" Background="Transparent"
+                      Width="90"
+                      Height="90"/>
     </Grid>    
 </Page>
