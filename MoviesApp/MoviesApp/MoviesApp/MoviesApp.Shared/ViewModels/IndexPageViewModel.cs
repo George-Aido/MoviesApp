@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MoviesApp.ViewModels
 {
-    public class CollectionViewModel : ViewModelBase
+    public class IndexPageViewModel : ViewModelBase
     {
         //private Dictionary<Tuple<int, int>, Movie> _dictionaryOfEpisodes;
         private RootObject _seasonList;
@@ -27,7 +27,7 @@ namespace MoviesApp.ViewModels
             }
         }
 
-        public CollectionViewModel()
+        public IndexPageViewModel()
         {
             //this.SeasonList = new RootObject();
             //ReadDataFromWeb();

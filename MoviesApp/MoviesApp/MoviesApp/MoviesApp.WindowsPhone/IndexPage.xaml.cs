@@ -29,7 +29,7 @@ namespace MoviesApp
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
-        public CollectionViewModel ViewModel { get; set; }
+        public IndexPageViewModel ViewModel { get; set; }
         public IndexPage()
         {
             this.InitializeComponent();
@@ -73,7 +73,7 @@ namespace MoviesApp
         {
             if (ViewModel == null)
             {
-                ViewModel = new CollectionViewModel();
+                ViewModel = new IndexPageViewModel();
                 //ViewModel.ReadDataFromWeb();
                 ViewModel.SeasonList = await ViewModel.DoReadDataFromWebAsync();
                 //ViewModel.SeasonList = temp2;
