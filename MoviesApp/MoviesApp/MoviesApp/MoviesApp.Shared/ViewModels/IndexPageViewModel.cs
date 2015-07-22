@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MoviesApp.ViewModels
 {
-    public class CollectionViewModel : ViewModelBase
+    public class IndexPageViewModel : ViewModelBase
     {
         //private Dictionary<Tuple<int, int>, Movie> _dictionaryOfEpisodes;
         private RootObject _seasonList;
@@ -27,17 +27,12 @@ namespace MoviesApp.ViewModels
             }
         }
 
-        public CollectionViewModel()
+        public async Task Init()
         {
-            //this.SeasonList = new RootObject();
-            //ReadDataFromWeb();
-        }
-
-        public async void ReadDataFromWeb()
-        {
+            this.SeasonList = new RootObject();
             this.SeasonList = await DoReadDataFromWebAsync();
         }
-        
+
         public async Task<RootObject> DoReadDataFromWebAsync()
         {
             var client = new HttpClient();

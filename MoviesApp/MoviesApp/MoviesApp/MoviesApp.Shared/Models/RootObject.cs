@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace MoviesApp.Models
@@ -9,6 +10,6 @@ namespace MoviesApp.Models
     public class RootObject
     {
         [JsonProperty(PropertyName = "Season")]
-        public List<Season> SeasonList { get; set; }
+        public ObservableCollection<Season> SeasonList { get; set; }
     }
 }
