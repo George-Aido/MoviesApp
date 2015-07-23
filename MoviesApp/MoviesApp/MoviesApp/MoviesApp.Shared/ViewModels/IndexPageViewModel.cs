@@ -6,12 +6,14 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.UI.Xaml.Controls;
+using MoviesApp.Util;
 
 namespace MoviesApp.ViewModels
 {
     public class IndexPageViewModel : ViewModelBase
     {
-        //private Dictionary<Tuple<int, int>, Movie> _dictionaryOfEpisodes;
         private RootObject _seasonList;
 
         public RootObject SeasonList
@@ -29,12 +31,13 @@ namespace MoviesApp.ViewModels
 
         public async Task Init()
         {
-            this.SeasonList = new RootObject();
             this.SeasonList = await DoReadDataFromWebAsync();
         }
 
         public async Task<RootObject> DoReadDataFromWebAsync()
         {
+            SeasonList = new RootObject();
+
             var client = new HttpClient();
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -53,22 +56,5 @@ namespace MoviesApp.ViewModels
                     return null;
             }
         }
-
-        //public async Task ReadDataFromWebAsync()
-        //{
-        //    var client = new HttpClient();
-        //    for (int i = 1; i < 7; i++)
-        //    {
-        //        for (int j = 1; j < 11; j++)
-        //        {
-        //            var respone = await client.GetAsync(new Uri(string.Format("http://www.omdbapi.com/?t=Game%20of%20Thrones&Season={0}&Episode={1}", i, j)));
-        //            string _result = await respone.Content.ReadAsStringAsync();
-        //            var movie = JsonConvert.DeserializeObject<Movie>(_result);
-
-        //            //this.DictionaryOfEpisodes.Add(String.Format("Episode:{0}",j), movie);
-        //            this.DictionaryOfEpisodes.Add(new Tuple<int, int>(Convert.ToInt16(movie.Season), Convert.ToInt16(movie.Episode)), movie);
-        //        }
-        //    }
-        //}
     }
 }

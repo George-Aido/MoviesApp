@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Episode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\RootObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Season.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\RelayCommandT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IndexPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
   </ItemGroup>

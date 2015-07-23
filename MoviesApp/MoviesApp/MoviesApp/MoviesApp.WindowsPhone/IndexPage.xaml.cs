@@ -75,7 +75,7 @@ namespace MoviesApp
             {
                 ViewModel = new IndexPageViewModel();
                 await ViewModel.Init();
-                for (int i = 1; i < 7; i++)
+                for (int i = 1; i < ViewModel.SeasonList.SeasonList.Count + 1; i++)
                 {
                     AddHubSections(ViewModel.SeasonList, i);
                 }
